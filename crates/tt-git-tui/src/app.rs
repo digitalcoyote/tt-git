@@ -71,6 +71,7 @@ const ALL_GLOBAL: &[Command] = &[
     Command::Top,
     Command::Bottom,
     Command::Refresh,
+    Command::Fetch,
     Command::Pull,
     Command::Push,
     Command::Undo,
@@ -2066,6 +2067,8 @@ impl App {
                 self.branches.on_command(cmd, &ctx);
             }
             Command::Refresh => self.update(Action::Refresh),
+            // ctrl+f fetches from any pane; f does too in the branches pane.
+            Command::Fetch => self.update(Action::Run(GitOp::FetchAll)),
             Command::Palette => {
                 // In blame, a number typed there goes to that line, as `:42` in vim.
                 let lines = self.blame_line_count();

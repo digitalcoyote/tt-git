@@ -1212,7 +1212,6 @@ impl Component for BranchesPane {
         }
         match cmd {
             Command::Filter => self.editing_filter = true,
-            Command::Fetch => ctx.emit(Action::Run(GitOp::FetchAll)),
             Command::NextTab => self.switch_tab(1, ctx),
             Command::PrevTab => self.switch_tab(BranchTab::ALL.len() - 1, ctx),
             Command::PickBase => ctx.emit(Action::OpenModal(self.base_picker())),

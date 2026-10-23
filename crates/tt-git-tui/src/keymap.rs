@@ -490,6 +490,7 @@ const DEFAULTS: &[(Context, Command, &[&str])] = &[
     (Context::Global, Command::Palette, &[":", "ctrl+p"]),
     (Context::Global, Command::Push, &["P"]),
     (Context::Global, Command::Pull, &["p"]),
+    (Context::Global, Command::Fetch, &["ctrl+f"]),
     (Context::Global, Command::Undo, &["z"]),
     (Context::Status, Command::StageToggle, &["space"]),
     (Context::Status, Command::OpenStaging, &["enter"]),

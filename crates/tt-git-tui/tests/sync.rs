@@ -5,7 +5,7 @@
 use ratatui::style::Color;
 use tt_git_testkit::{Sandbox, TestDriver};
 use tt_git_tui::Action;
-use tt_git_tui::modal::GitOp;
+use tt_git_tui::modal::{GitOp, Modal};
 
 /// `main` tracking `origin/main`, one commit ahead.
 fn ahead_of_origin() -> Sandbox {
@@ -170,6 +170,32 @@ fn pull_and_fetch_say_where_they_go_and_several_show_their_verbs() {
     t.press_frame("P");
     assert!(help_bar(&t).ends_with("│ ⠋ fetching · pushing"), "{}", help_bar(&t));
     t.wait_idle();
+    assert!(t.app().error().is_none(), "{:?}", t.app().error());
+}
+
+#[test]
+fn ctrl_f_fetches_from_any_pane() {
+    let sb = ahead_of_origin();
+    // Someone else pushes a new branch.
+    let other = sb.clone_to(&sb.root().join("remotes").join("origin.git"), "other");
+    sb.git_in(&other, &["switch", "-q", "-c", "brand-new"]);
+    sb.git_in(&other, &["commit", "-q", "--allow-empty", "-m", "their work"]);
+    sb.git_in(&other, &["push", "-q", "origin", "brand-new"]);
+    let mut t = TestDriver::new(&sb);
+    assert!(
+        t.app().branches().visible().all(|e| e.name != "brand-new"),
+        "not fetched yet"
+    );
+    // From the graph, where f opens the filter instead of fetching.
+    t.press("f");
+    assert!(matches!(t.app().modal(), Some(Modal::Filter(_))), "f still filters");
+    t.press("esc");
+    t.press("ctrl+f");
+    assert_eq!(t.app().notice(), Some("✓ fetched all remotes"));
+    assert!(
+        t.app().branches().visible().any(|e| e.name == "brand-new"),
+        "the new remote branch is listed"
+    );
     assert!(t.app().error().is_none(), "{:?}", t.app().error());
 }
 
