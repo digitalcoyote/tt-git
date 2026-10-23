@@ -46,14 +46,15 @@ conflicted files. See [Resolving conflicts](/git/merge-rebase/#resolving-conflic
 
 ## Fetch
 
-Press <kbd>f</kbd> in the branches pane to run `git fetch --all --prune`. It
-fetches every remote and removes remote branches that were deleted on the
-server. A local branch whose upstream was deleted then shows `gone` in red in
-the branch list, which usually means it was merged and can be deleted.
+Press <kbd>ctrl+f</kbd> from any pane to run `git fetch --all --prune`
+(in the branches pane, <kbd>f</kbd> does the same). It fetches every
+remote and removes remote branches that were deleted on the server. A
+local branch whose upstream was deleted then shows `gone` in red in the
+branch list, which usually means it was merged and can be deleted.
 
 <Aside>
-	In the graph, <kbd>f</kbd> opens the author and file filter instead. Fetch
-	from the branches pane (<kbd>3</kbd>, then <kbd>f</kbd>).
+	In the graph, <kbd>f</kbd> opens the author and file filter instead.
+	Press <kbd>ctrl+f</kbd> there to fetch.
 </Aside>
 
 A fetch that brings nothing new doesn't reload the graph.

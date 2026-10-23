@@ -97,6 +97,7 @@ command palette, which lists built-in commands and plugin actions.
 | | `+` | zoom: the graph, or details if focused, fullscreen and back |
 | | `j` `k` `↑` `↓`, `ctrl+d` `ctrl+u`, `g` `G` | move, page, top/bottom |
 | | `P` / `p` | push (sets upstream on first push) / pull |
+| | `ctrl+f` | `fetch --all --prune` |
 | | `z` | undo the last checkout, commit, reset or rebase |
 | | `ctrl+r` | refresh |
 | | `:` `ctrl+p` | command palette |
